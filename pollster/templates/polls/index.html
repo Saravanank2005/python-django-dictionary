@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    /* General Styles */
+    body {
+        background-image: url('https://picsum.photos/1920/1080');
+        background-size: cover;
+        background-attachment: fixed;
+    }
+
+    .content-container {
+        background: rgba(255, 255, 255, 0.8);
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin: 20px auto;
+        max-width: 800px;
+    }
+
+    /* Custom CSS styles */
+    .card-mb-3 {
+        margin-bottom: 20px;
+        border: 1px solid #dee2e6;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-body {
+        padding: 20px;
+    }
+
+    .lead {
+        font-size: 1.25rem;
+        margin-bottom: 15px;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+        margin-right: 10px;
+    }
+
+    .btn-primary:hover,
+    .btn-secondary:hover {
+        opacity: 0.8;
+    }
+
+    h1 {
+        margin-bottom: 20px;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+</style>
+
+<div class="content-container">
+    <h1 class="text-center mb-3">Poll Questions</h1>
+    {% if latest_question_list %}
+        {% for question in latest_question_list %}
+            <div class="card-mb-3">
+                <div class="card-body">
+                    <p class="lead">{{ question.question_text }}</p>
+                    <a href="{% url 'polls:detail' question.id %}" class="btn btn-primary btn-sm">Vote Now</a>
+                    <a href="{% url 'polls:results' question.id %}" class="btn btn-secondary btn-sm">Results</a>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p class="text-center">No polls available</p>
+    {% endif %}
+</div>
+{% endblock %}
